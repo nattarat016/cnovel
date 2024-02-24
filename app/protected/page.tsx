@@ -1,5 +1,4 @@
 import DeployButton from "@/components/DeployButton";
-import AuthButton from "@/components/AuthButton";
 import { createClient } from "@/utils/supabase/server";
 import FetchDataSteps from "@/components/tutorial/FetchDataSteps";
 import Header from "@/components/Header";
@@ -25,7 +24,6 @@ export default async function ProtectedPage() {
             <div>
               Cnovel
             </div>
-            <AuthButton />
           </div>
         </nav>
       </div>
