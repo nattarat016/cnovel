@@ -3,6 +3,7 @@ import Nav from "@/components/Nav";
 import { createClient } from "@/utils/supabase/server";
 import { SubmitButton } from "./submit-button";
 import { upload } from "./actions";
+import Navuser from "@/components/Navuser";
 
 
 export default async function Index() {

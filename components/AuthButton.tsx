@@ -1,10 +1,15 @@
 
 import { createClient } from "@/utils/supabase/server";
-import { cookies } from "next/headers";
+import { cookies } from "next/dist/client/components/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-
-export default async function AuthButton() {
+export const signOut = async () => {
+  "use server";
+  cookies().delete('token')
+  cookies().delete('id')
+  return redirect("/");
+};
+export  async function AuthButton() {
   let user = null
   const supabase = createClient();
   const cookie = cookies().get('token')
@@ -17,12 +22,7 @@ export default async function AuthButton() {
     }
     if (data[0] != undefined) user = data[0] 
       
-  const signOut = async () => {
-    "use server";
-    cookies().delete('token')
-    cookies().delete('id')
-    return redirect("/login");
-  };
+
 
   return user ? (
     <div className="flex items-center gap-4">

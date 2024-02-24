@@ -1,6 +1,9 @@
+
 import { createClient } from '@/utils/supabase/server';
 import React from 'react'
-import AuthButton from './AuthButton';
+
+import Link from 'next/link';
+import ResponsiveAppBar from './Navuser';
 
 function Nav() {
     const canInitSupabaseClient = () => {
@@ -17,12 +20,16 @@ function Nav() {
       const isSupabaseConnected = canInitSupabaseClient();
   return (
     <nav className="  min-w-full flex justify-center h-16 text-white">
-        <div className="px-6 bg-indigo-950 min-w-full max-w-4xl flex justify-between items-center p-3 text-sm">
+        <ResponsiveAppBar/>
+        {/* <div className="px-6 bg-indigo-950 min-w-full max-w-4xl flex justify-between items-center p-3 text-sm">
           <div>
             Cnovel
           </div>
-          {isSupabaseConnected && <AuthButton />}
+        <div>
+            <Link href={'/user/novels'}>Your Novel</Link>
         </div>
+          {isSupabaseConnected && <AuthButton />}
+        </div> */}
       </nav>
   )
 }
