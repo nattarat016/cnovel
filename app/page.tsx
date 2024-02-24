@@ -1,54 +1,54 @@
-import DeployButton from "../components/DeployButton";
-import AuthButton from "../components/AuthButton";
+
+import Nav from "@/components/Nav";
 import { createClient } from "@/utils/supabase/server";
-import ConnectSupabaseSteps from "@/components/tutorial/ConnectSupabaseSteps";
-import SignUpUserSteps from "@/components/tutorial/SignUpUserSteps";
-import Header from "@/components/Header";
+import { SubmitButton } from "./submit-button";
+import { upload } from "./actions";
+
 
 export default async function Index() {
-  const canInitSupabaseClient = () => {
-    // This function is just for the interactive tutorial.
-    // Feel free to remove it once you have Supabase connected.
-    try {
-      createClient();
-      return true;
-    } catch (e) {
-      return false;
-    }
-  };
+  const supabase = createClient();
+let { data: Novel, error } = await supabase
+.from('Novel')
+.select('*')
 
-  const isSupabaseConnected = canInitSupabaseClient();
+const novellist = () => {
+  return Novel?.map(text => <p key={text.id}>{text.Name}</p>);
+}
 
+
+        
   return (
-    <div className="flex-1 w-full flex flex-col gap-20 items-center">
-      <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-        <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm">
-          <DeployButton />
-          {isSupabaseConnected && <AuthButton />}
+    <>
+    <Nav/>
+      <main className=" text-white p-10 flex-col flex bg-indigo-900 min-w-full min-h-screen items-center">
+        <div className=" text-3xl">Novel</div>
+        
+        <div>
+          {novellist()}
         </div>
-      </nav>
-
-      <div className="animate-in flex-1 flex flex-col gap-20 opacity-0 max-w-4xl px-3">
-        <Header />
-        <main className="flex-1 flex flex-col gap-6">
-          <h2 className="font-bold text-4xl mb-4">Next steps</h2>
-          {isSupabaseConnected ? <SignUpUserSteps /> : <ConnectSupabaseSteps />}
-        </main>
-      </div>
-
-      <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
-        <p>
-          Powered by{" "}
-          <a
-            href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-            target="_blank"
-            className="font-bold hover:underline"
-            rel="noreferrer"
-          >
-            Supabase
-          </a>
-        </p>
-      </footer>
-    </div>
+        <div>
+        <form className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground">
+        <label className="text-md" htmlFor="file">
+          Name
+        </label>
+        <input
+        type="file"
+          className="rounded-md px-4 py-2 bg-inherit border mb-6"
+          name="file"
+          placeholder="yourname"
+          required
+        />
+        <SubmitButton
+          formAction={upload}
+          className="bg-green-700 rounded-md px-4 py-2 text-foreground mb-2"
+          pendingText="loading..."
+        >
+          Upload
+        </SubmitButton>
+       
+      </form>
+        </div>
+      </main>
+      </>
   );
 }
