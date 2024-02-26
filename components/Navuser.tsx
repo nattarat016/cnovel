@@ -106,7 +106,7 @@ const settings = [
             variant="h5"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="/"
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -166,7 +166,7 @@ const settings = [
             </Menu>
           </Box>
         </Toolbar>
-      </Container>
+      </Container> 
     </AppBar>
   );
 }
