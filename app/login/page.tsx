@@ -10,7 +10,6 @@ export default function Login({
 }: {
   searchParams: { message: string };
 }) {
-
   const login = async (formData: FormData) => {
     "use server";
     const email = formData.get("email") as string;
@@ -24,10 +23,10 @@ export default function Login({
       .eq("sessions", token);
     if (error) {
       console.log(error);
-      
+
       return redirect("/login?message=Login fail");
     }
-console.log(55);
+    console.log(55);
 
     if (!data[0]) return redirect("/login?message=Login fail");
     const id = data![0].id;
