@@ -1,44 +1,29 @@
-
 import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/dist/client/components/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 export const signOut = async () => {
   "use server";
-  cookies().delete('token')
-  cookies().delete('id')
+  cookies().delete("token");
+  cookies().delete("id");
   return redirect("/");
 };
-export  async function AuthButton() {
-  let user = null
-  const supabase = createClient();
-  const cookie = cookies().get('token')
-  const { data, error } = await supabase
-      .from("User")
-      .select("name")
-      .eq("sessions", cookie?.value);
-    if (error) {
-      return
-    }
-    if (data[0] != undefined) user = data[0] 
-      
-
-
-  return user ? (
-    <div className="flex items-center gap-4">
-      Hey, {user.name} !
-      <form action={signOut}>
-        <button className="py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover">
-          Logout
-        </button>
-      </form>
-    </div>
-  ) : (
-    <Link
-      href="/login"
-      className="py-2 px-3 flex rounded-md no-underline bg-btn-background hover:bg-btn-background-hover"
-    >
-      Login
-    </Link>
-  );
-}
+// export async function AuthButton() {
+//   return user ? (
+//     <div className="flex items-center gap-4">
+//       Hey, {user.name} !
+//       <form action={signOut}>
+//         <button className="py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover">
+//           Logout
+//         </button>
+//       </form>
+//     </div>
+//   ) : (
+//     <Link
+//       href="/login"
+//       className="py-2 px-3 flex rounded-md no-underline bg-btn-background hover:bg-btn-background-hover"
+//     >
+//       Login
+//     </Link>
+//   );
+// }

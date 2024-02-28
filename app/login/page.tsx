@@ -26,7 +26,6 @@ export default function Login({
 
       return redirect("/login?message=Login fail");
     }
-    console.log(55);
 
     if (!data[0]) return redirect("/login?message=Login fail");
     const id = data![0].id;
