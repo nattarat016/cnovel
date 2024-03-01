@@ -12,8 +12,8 @@ import { Nav1, Nav2 } from "./Nav1";
 
 export async function we() {
   let user = null;
-  const supabase = createClient();
-  const cookie = cookies().get("token");
+  const supabase = await createClient();
+  const cookie = await cookies().get("token");
   const { data, error } = await supabase
     .from("User")
     .select("name")

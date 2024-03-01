@@ -5,5 +5,5 @@ export async function GET() {
   "use server";
   cookies().delete("token");
   cookies().delete("id");
-  return redirect("/");
+  return redirect("/login");
 }
